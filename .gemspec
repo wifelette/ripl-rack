@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.executables = ['ripl-rack']
   s.add_dependency 'ripl', '>= 0.7.0'
   s.add_dependency 'rack', '>= 1.0'
-  s.add_dependency 'rack-test', '~> 0.6.2'
+  s.add_dependency 'rack-test', '>= 0.6.2'
   s.files = Dir.glob(%w[{lib,test}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile .gemspec}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
   s.license = 'MIT'

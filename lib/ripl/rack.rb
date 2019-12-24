@@ -34,8 +34,19 @@ module Ripl::Rack
 
     def initialize(config_ru=nil)
       config_ru ||= ENV['RACK_CONFIG'] || 'config.ru'
-      abort(MESSAGE % config_ru) unless File.exists? config_ru
-      @app = Kernel.eval("Rack::Builder.new { #{File.read(config_ru)} }")
+      abort(MESSAGE % config_ru) unless File.exist? config_ru
+
+      basepath = File.expand_path(config_ru)
+      body = File.read(config_ru)
+
+      file = <<~RUBY
+        Rack::Builder.new do
+          #{body}
+        end
+      RUBY
+
+      @app = Kernel.eval(file, TOPLEVEL_BINDING, basepath, 0)
+
       @env = ENV['RACK_ENV'] || 'development'
     end
 
